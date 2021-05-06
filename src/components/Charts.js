@@ -30,6 +30,7 @@ export default function Content({
           legendToggle
         />
       </div>
+
       <div className="col">
         <Chart //second chart
           height={400}

@@ -52,7 +52,6 @@ export default function Content() {
 
         data.response.map((covidInformation, index) => {
           const { continent, deaths, cases } = covidInformation;
-
           targetContinentInformation.map((key, i) => {
             if (targetContinentInformation[i][0] === continent) {
               //updating active cases

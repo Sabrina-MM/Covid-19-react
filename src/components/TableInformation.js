@@ -9,6 +9,7 @@ export default function TableInformation({ information }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    e.target.reset(); //to clean input fields
     information.map((info, i) => {
       if (info.country.length > 0) {
         if (info.country.toUpperCase() === countries.toUpperCase()) {
@@ -16,24 +17,34 @@ export default function TableInformation({ information }) {
         } else {
           return null;
         }
-      } else return null;
+      }
+      return null;
     });
   }
-  function handleAllCountriesClick(id) {
-    let position = information.findIndex((a) => a.country === id);
-    let object = information[position];
-    information.splice(position, 1); //deleting object
-    information.unshift(object); //adding the object at the begining of array
-    setTables(<FullTable information={information} />);
-  }
 
-  function handleEachContinentClick(id) {
+  function buttonsHandle(id) {
     let position = information.findIndex((a) => a.country === id);
     let object = information[position];
     information.splice(position, 1); //deleting object
     information.unshift(object); //adding the object at the begining of array
-    setTables(<ContinentsTable information={information} id={id} />);
+
+    setTables(
+      id === "All" ? (
+        <FullTable information={information} />
+      ) : (
+        <ContinentsTable information={information} id={id} />
+      )
+    );
   }
+  let continents = [
+    "All",
+    "Africa",
+    "Europe",
+    "Oceania",
+    "Asia",
+    "South-America",
+    "North-America",
+  ];
 
   return (
     <section>
@@ -46,56 +57,19 @@ export default function TableInformation({ information }) {
         />
         <input type="submit" className="btn btn-primary ms-2" />
       </form>
-      <button
-        onClick={(e) => handleAllCountriesClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="All"
-      >
-        All
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="Africa"
-      >
-        Africa
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="Europe"
-      >
-        Europe
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="Oceania"
-      >
-        Oceania
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="Asia"
-      >
-        Asia
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start  me-2"
-        id="South-America"
-      >
-        South-America
-      </button>
-      <button
-        onClick={(e) => handleEachContinentClick(e.target.id)}
-        className="btn btn-secondary float-start me-2"
-        id="North-America"
-      >
-        North-America
-      </button>
 
+      {continents.map((info, index) => {
+        return (
+          <button
+            key={index}
+            onClick={(e) => buttonsHandle(e.target.id)}
+            className="btn btn-secondary float-start  me-2"
+            id={continents[index]}
+          >
+            {continents[index]}
+          </button>
+        );
+      })}
       {tables}
     </section>
   );
