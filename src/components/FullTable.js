@@ -3,6 +3,10 @@ import React from "react";
 import "../css/FullTable.css";
 
 export default function FullTable({ information }) {
+  let position = information.findIndex((a) => a.country === "All");
+  let object = information[position];
+  information.splice(position, 1); //deleting object
+  information.unshift(object);
   return (
     <section>
       <table className="table table-bordered">
@@ -35,7 +39,13 @@ export default function FullTable({ information }) {
           return (
             <tbody key={index}>
               <tr>
-                <td>{info.country}</td>
+                <td
+                  className={
+                    info.country === "All" ? "bg-success text-white" : null
+                  }
+                >
+                  {info.country}
+                </td>
                 <td>{info.cases.total}</td>
                 <td className={info.cases.new ? "bg-warning text-white" : null}>
                   {info.cases.new}

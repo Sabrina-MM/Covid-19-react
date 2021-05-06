@@ -27,7 +27,13 @@ export default function ContinentsTable({ information, id }) {
           return (
             <tbody key={index}>
               <tr>
-                <td>{info.country}</td>
+                <td
+                  className={
+                    info.country === id ? "bg-success text-white" : null
+                  }
+                >
+                  {info.country}
+                </td>
                 <td>{info.cases.total}</td>
                 <td className={info.cases.new ? "bg-warning text-white" : null}>
                   {info.cases.new}
