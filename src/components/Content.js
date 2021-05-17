@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Charts from "../components/Charts";
 import TableInformation from "../components/TableInformation";
-
+import { targetContinentInformation, targetContinents } from "../constants";
 import "../css/Content.css";
 
 export default function Content() {
@@ -32,23 +32,6 @@ export default function Content() {
             a.country > b.country ? 1 : b.country > a.country ? -1 : 0
           )
         );
-
-        let targetContinentInformation = [
-          ["North-America", 0, 0, 0],
-          ["Europe", 0, 0, 0],
-          ["Asia", 0, 0, 0],
-          ["South-America", 0, 0, 0],
-          ["Oceania", 0, 0, 0],
-          ["Africa", 0, 0, 0],
-        ];
-        let targetContinents = [
-          ["North-America", 0, 0],
-          ["Europe", 0, 0],
-          ["Asia", 0, 0],
-          ["South-America", 0, 0],
-          ["Oceania", 0, 0],
-          ["Africa", 0, 0],
-        ];
 
         data.response.map((covidInformation, index) => {
           const { continent, deaths, cases } = covidInformation;
@@ -106,7 +89,12 @@ export default function Content() {
         newDataPerContinent={newDataPerContinent}
         secondChartWithCovidInformation={secondChartWithCovidInformation}
       />
-      <h2>Covid-19 Information by Country</h2>
+      <div className="main-content">
+        <h2>Covid-19 Information by Country</h2>
+        <h4>
+          <i>Updated: {information ? information[0].day : null}</i>
+        </h4>
+      </div>
 
       {information ? <TableInformation information={information} /> : null}
     </div>

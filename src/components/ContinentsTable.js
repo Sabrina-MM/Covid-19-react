@@ -1,21 +1,23 @@
 import React from "react";
 
-export default function ContinentsTable({ information, id }) {
+export default function ContinentsTable({
+  information,
+  id,
+  columnsInformation,
+}) {
   return (
     <section>
       <table className="table table-bordered">
         <thead className="table-bar">
           <tr>
             <th scope="col-sm">Country</th>
-            <th scope="col-sm">Total Cases</th>
-            <th scope="col-sm">New Cases</th>
-            <th scope="col-sm">Total Deaths</th>
-            <th scope="col-sm">New Deaths</th>
-            <th scope="col-sm">Total Recovered</th>
-            <th scope="col-sm">Active Cases</th>
-            <th scope="col-sm">Critical cases</th>
-            <th scope="col-sm">Total Tests</th>
-            <th scope="col-sm">Population</th>
+            {columnsInformation.map((columnsName, i) => {
+              return (
+                <th scope="col-sm" key={i}>
+                  {columnsName}
+                </th>
+              );
+            })}
           </tr>
         </thead>
 

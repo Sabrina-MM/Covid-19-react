@@ -6,3 +6,20 @@
 .container {
   margin-top: 50px;
 }
+
+.fa-github {
+  font-size: 20px;
+}
+
+.fa-github:hover,
+.fa-syringe:hover {
+  transform: scale(1.2);
+}
+
+header h1 img {
+  width: 10%;
+}
+
+footer {
+  margin: 50px 0px 10px 0px;
+}

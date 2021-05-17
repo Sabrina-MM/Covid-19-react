@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import FullTable from "../components/FullTable";
 import SimpleCountryTable from "./SimpleCountryTable";
-import ContinentsTable from "../components/ContinentsTable";
+import { continents, columnsInformation } from "../constants";
 
 export default function TableInformation({ information }) {
   const [countries, setCountries] = useState();
-  const [tables, setTables] = useState(<FullTable information={information} />);
+  const [selectedContinent, setSelectedContinent] = useState("All");
+  const [tables, setTables] = useState(
+    <FullTable information={information} continent={selectedContinent} />
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,41 +17,75 @@ export default function TableInformation({ information }) {
       if (info.country.length > 0) {
         if (info.country.toUpperCase() === countries.toUpperCase()) {
           return setTables(<SimpleCountryTable information={information[i]} />);
-        } else {
-          return null;
         }
       }
       return null;
     });
   }
 
-  function buttonsHandle(id) {
-    let position = information.findIndex((a) => a.country === id);
-    let object = information[position];
-    information.splice(position, 1); //deleting object
-    information.unshift(object); //adding the object at the begining of array
-
-    setTables(
-      id === "All" ? (
-        <FullTable information={information} />
-      ) : (
-        <ContinentsTable information={information} id={id} />
-      )
-    );
+  function buttonsHandle(continent) {
+    setSelectedContinent(continent);
+    setTables(<FullTable information={information} continent={continent} />);
   }
-  let continents = [
-    "All",
-    "Africa",
-    "Europe",
-    "Oceania",
-    "Asia",
-    "South-America",
-    "North-America",
-  ];
+
+  function handleCheckboxes(e) {
+    let checkbox = e.target.checked;
+    let targetColumn = e.target.name;
+
+    if (checkbox === true) {
+      updatingColumnValue(targetColumn, true);
+      setTables(
+        <FullTable information={information} continent={selectedContinent} />
+      );
+    } else {
+      updatingColumnValue(targetColumn, false);
+      setTables(
+        <FullTable information={information} continent={selectedContinent} />
+      );
+    }
+  }
+
+  function updatingColumnValue(name, checkbox) {
+    columnsInformation.map((column, i) => {
+      let columnName = column.column;
+      if (columnName === name) {
+        column.value = checkbox;
+        return column.value;
+      }
+      return null;
+    });
+  }
 
   return (
     <section>
-      <form onSubmit={handleSubmit} className="d-flex float-end col-6 mb-4">
+      <div className="dropdown">
+        <button
+          className="btn btn-warning dropdown-toggle float-start me-2"
+          type="button"
+          id="dropdownMenuButton"
+          data-bs-toggle="dropdown"
+          aria-expanded={false}
+        >
+          Columns
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {columnsInformation.map((name, index) => {
+            return (
+              <li key={index} className="p-2">
+                <input
+                  type="checkbox"
+                  name={name.column}
+                  onClick={handleCheckboxes}
+                  defaultChecked={true}
+                  className="me-1"
+                />
+                <label htmlFor={name.column}>{name.column}</label>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      <form onSubmit={handleSubmit} className="d-flex float-end col-sm-5 mb-4">
         <input
           type="search"
           placeholder="Type to search..."
@@ -57,19 +94,19 @@ export default function TableInformation({ information }) {
         />
         <input type="submit" className="btn btn-primary ms-2" />
       </form>
-
-      {continents.map((info, index) => {
+      {continents.map((continent, index) => {
         return (
           <button
             key={index}
             onClick={(e) => buttonsHandle(e.target.id)}
             className="btn btn-secondary float-start  me-2"
-            id={continents[index]}
+            id={continent}
           >
-            {continents[index]}
+            {continent}
           </button>
         );
       })}
+
       {tables}
     </section>
   );

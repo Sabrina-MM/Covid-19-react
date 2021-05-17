@@ -13,7 +13,7 @@ export default function SimpleCountryTable({ information }) {
             <th scope="col-sm">New Deaths</th>
             <th scope="col-sm">Total Recovered</th>
             <th scope="col-sm">Active Cases</th>
-            <th scope="col-sm">Critical cases</th>
+            <th scope="col-sm">Critical Cases</th>
             <th scope="col-sm">Total Tests</th>
             <th scope="col-sm">Population</th>
           </tr>
