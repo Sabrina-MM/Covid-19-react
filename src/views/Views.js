@@ -18,7 +18,7 @@ function Views() {
             Coronavirus updates and guidance
           </a>
           <a
-            href="https://github.com/Sabrina-MM/covid-react"
+            href="https://github.com/Sabrina-MM"
             alt="Github animation"
             target="blank"
             className="float-end"
@@ -47,7 +47,7 @@ function Views() {
           @2021 This project was coded by Sabrina Martinez and is open-sourced
           on
           <a
-            href="https://github.com/Sabrina-MM/covid-react"
+            href="https://github.com/Sabrina-MM"
             alt="Github animation"
             target="blank"
           >

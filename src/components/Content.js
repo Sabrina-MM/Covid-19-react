@@ -92,7 +92,7 @@ export default function Content() {
       <div className="main-content">
         <h2>Covid-19 Information by Country</h2>
         <h4>
-          <i>Updated: {information ? information[0].day : null}</i>
+          <i>Latest Update: {information ? information[0].day : null}</i>
         </h4>
       </div>
 
