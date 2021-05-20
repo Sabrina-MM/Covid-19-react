@@ -27,6 +27,7 @@ export let continents = [
 ];
 
 export let columnsInformation = [
+  { column: "Country", value: true },
   { column: "Total Cases", value: true },
   { column: "New Cases", value: true },
   { column: "Total Deaths", value: true },

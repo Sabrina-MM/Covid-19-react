@@ -1,4 +1,5 @@
 import React from "react";
+import { columnsInformation } from "../constants";
 
 export default function SimpleCountryTable({ information }) {
   return (
@@ -6,16 +7,13 @@ export default function SimpleCountryTable({ information }) {
       <table className="table table-bordered">
         <thead className="table-bar">
           <tr>
-            <th scope="col-sm">Country</th>
-            <th scope="col-sm">Total Cases</th>
-            <th scope="col-sm">New Cases</th>
-            <th scope="col-sm">Total Deaths</th>
-            <th scope="col-sm">New Deaths</th>
-            <th scope="col-sm">Total Recovered</th>
-            <th scope="col-sm">Active Cases</th>
-            <th scope="col-sm">Critical Cases</th>
-            <th scope="col-sm">Total Tests</th>
-            <th scope="col-sm">Population</th>
+            {columnsInformation.map((column, i) => {
+              return (
+                <th scope="col-sm" key={i}>
+                  {column.column}
+                </th>
+              );
+            })}
           </tr>
         </thead>
         <tbody>
